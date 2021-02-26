@@ -55,7 +55,7 @@ jobs:
           git add .
           git config --global user.email "github-action@github.com"
           git config --global user.name "GitHub Action"
-          git commit -am "Recommited with clean Notebooks" -a || echo "No changes to commit"
-          git push origin
+          git commit -am "Recommited with clean notebooks" -a || echo "No changes to commit"
+          git push
 
 
