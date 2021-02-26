@@ -45,9 +45,15 @@ jobs:
 
       - name: Print names in the text file
         run: |
-          while read p; do
-            echo "$p"
+          while read p;
+          do
+            jupyter nbconvert  --clear-output --inplace "$p"
           done <ipy_list.txt
+
+      - name: Check local directory
+        run: |
+          pwd
+          ls
 
       - name: Clear Jupyter notebook output cells
         run: jupyter nbconvert  --clear-output --inplace *.ipynb
