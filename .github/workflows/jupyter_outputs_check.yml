@@ -33,8 +33,13 @@ jobs:
           pip install jupyter
           pip install nbconvert
 
+      - name: Find local directory
+        - run: pwd
+        - run: ls
+
       - name: Clear Jupyter notebook output cells
-        run: jupyter nbconvert --clear-output --inplace
+        run: find . -iname \*.ipynb >> notebook_list.txt
+        run: jupyter nbconvert  --clear-output --inplace
 
       - name: Recommit with clear notebooks
         run: |
