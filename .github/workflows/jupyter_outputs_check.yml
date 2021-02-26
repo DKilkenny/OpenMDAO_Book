@@ -24,6 +24,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - name: Find local directory
+        - run: pwd
+        - run: ls
+
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8.1'
@@ -32,10 +37,6 @@ jobs:
         run: |
           pip install jupyter
           pip install nbconvert
-
-      - name: Find local directory
-        - run: pwd
-        - run: ls
 
       - name: Clear Jupyter notebook output cells
         run: find . -iname \*.ipynb >> notebook_list.txt
