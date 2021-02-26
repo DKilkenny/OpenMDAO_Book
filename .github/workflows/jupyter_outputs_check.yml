@@ -40,7 +40,6 @@ jobs:
           pip install nbconvert
 
       - name: Clear Jupyter notebook output cells
-        run: find . -iname \*.ipynb >> notebook_list.txt
         run: jupyter nbconvert  --clear-output --inplace
 
       - name: Recommit with clear notebooks
