@@ -26,16 +26,15 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          python-version: '3.8.1'
 
       - name: Install jupyter and nbconvert
         run: |
           pip install jupyter
           pip install nbconvert
 
-      # Runs a single command using the runners shell
       - name: Clear Jupyter notebook output cells
-        run: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+        run: jupyter nbconvert --clear-output --inplace
 
       - name: Recommit with clear notebooks
         run: |
