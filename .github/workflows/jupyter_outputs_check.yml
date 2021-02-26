@@ -25,11 +25,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Find local directory
-        run: |
-          pwd
-          ls
-
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8.1'
@@ -48,15 +43,11 @@ jobs:
           while read p;
           do
             jupyter nbconvert  --clear-output --inplace "$p"
-          done <ipy_list.txt
+          done
 
       - name: Check local directory
         run: |
-          pwd
-          ls
-
-      - name: Clear Jupyter notebook output cells
-        run: jupyter nbconvert  --clear-output --inplace *.ipynb
+          rm ipy_list.txt
 
       - name: Recommit with clear notebooks
         run: |
