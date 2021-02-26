@@ -39,8 +39,27 @@ jobs:
           pip install jupyter
           pip install nbconvert
 
+      # hooks:
+      # - id: jupyter-nb-clear-output
+      #   name: jupyter-nb-clear-output
+      #   files: \.ipynb$
+      #   stages: [commit]
+      #   language: system
+      #   entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+
+      - name: Run jupyter clear
+        files: \.ipynb$
+        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+
+      - name: Find ipynb files and create config
+        run: |
+          find . -name ipynb_checkpoints -prune -o -iname \*ipynb >> ipy_notbooks.txt
+
       - name: Clear Jupyter notebook output cells
         run: jupyter nbconvert  --clear-output --inplace
+
+      - name: Cleanup files
+        run: rm ipy_notbooks.text
 
       - name: Recommit with clear notebooks
         run: |
