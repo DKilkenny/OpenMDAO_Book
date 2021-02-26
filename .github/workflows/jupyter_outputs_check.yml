@@ -39,9 +39,15 @@ jobs:
           pip install jupyter
           pip install nbconvert
 
-      # - name: Find ipynb files and create config
-      #   run: |
-      #     find . -name ipynb_checkpoints -prune -o -iname \*ipynbs >> html_list.txt
+      - name: Make list
+        run: |
+          find . -name ipynb_checkpoints -prune -o -iname \*ipynb >> ipy_list.txt
+
+      - name: Print names in the text file
+        run: |
+          while read p; do
+            echo "$p"
+          done <ipy_list.txt
 
       - name: Clear Jupyter notebook output cells
         run: jupyter nbconvert  --clear-output --inplace *.ipynb
