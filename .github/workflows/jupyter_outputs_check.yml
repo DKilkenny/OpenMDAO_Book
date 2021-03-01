@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Jupyter Notebook Cleanup
 
 # Controls when the action will run.
 on:
@@ -50,12 +50,11 @@ jobs:
         run: |
           rm ipy_list.txt
 
-      - name: Recommit with clear notebooks
+      - name: Commit and push if changed
         run: |
-          git add .
           git config --global user.email "github-action@github.com"
           git config --global user.name "GitHub Action"
-          git commit -am "Recommited with clean notebooks" -a || echo "No changes to commit"
+          git commit -m "Cleaned Notebooks" -a || echo "No changes to commit"
           git push
 
 
