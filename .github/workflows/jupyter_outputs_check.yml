@@ -24,6 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -50,8 +52,13 @@ jobs:
         run: |
           rm ipy_list.txt
 
+      - name: Git Status
+        run: git status
+
       - name: Commit and push if changed
         run: |
+          git add .
+          git diff
           git config --global user.email "github-action@github.com"
           git config --global user.name "GitHub Action"
           git commit -m "Cleaned Notebooks" -a || echo "No changes to commit"
