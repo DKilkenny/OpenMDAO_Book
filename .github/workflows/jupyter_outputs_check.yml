@@ -25,7 +25,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-          persist-credentials: false
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -55,13 +56,24 @@ jobs:
       - name: Git Status
         run: git status
 
-      - name: Commit and push if changed
+      - name: Commit files
         run: |
-          git add .
-          git diff
-          git config --global user.email "github-action@github.com"
-          git config --global user.name "GitHub Action"
-          git commit -m "Cleaned Notebooks" -a || echo "No changes to commit"
-          git push
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Add changes" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      # - name: Commit and push if changed
+      #   run: |
+      #     git add .
+      #     git diff
+      #     git config --global user.email "github-action@github.com"
+      #     git config --global user.name "GitHub Action"
+      #     git commit -m "Cleaned Notebooks" -a || echo "No changes to commit"
+      #     git push
 
 
