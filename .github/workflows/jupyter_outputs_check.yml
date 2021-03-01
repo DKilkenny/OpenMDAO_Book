@@ -25,21 +25,27 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
-      # extract branch name
-      - name: Extract branch name
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - uses: nelonoel/branch-name@v1
+      # Use branch name for whatever purpose
+      - run: echo ${BRANCH_NAME}
 
-      # extract branch name on pull request
-      - name: Print branch name
-        if: github.event_name == 'pull_request'
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+      # # extract branch name
+      # - name: Extract branch name
+      #   if: github.event_name != 'pull_request'
+      #   shell: bash
+      #   run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
+      #   id: extract_branch
 
-      # print branch name
-      - name: Get branch name
-        run: echo 'The branch name is' $BRANCH_NAME
+      # # extract branch name on pull request
+      # - name: Print branch name
+      #   if: github.event_name == 'pull_request'
+      #   run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+
+      # # print branch name
+      # - name: Get branch name
+      #   run: echo 'The branch name is' $BRANCH_NAME
 
       - uses: actions/checkout@v2
         with:
