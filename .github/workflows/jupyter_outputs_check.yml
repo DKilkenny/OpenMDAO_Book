@@ -23,11 +23,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v2
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
+          ref: 'gh_actions'
           python-version: 3.8
 
       - name: Install jupyter and nbconvert
@@ -55,10 +56,10 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git add .
-          git diff
           git config --global user.email "github-action@github.com"
           git config --global user.name "GitHub Action"
+          git add -A
+          git diff
           git commit -m "Cleaned Notebooks" -a || echo "No changes to commit"
           git push
 
