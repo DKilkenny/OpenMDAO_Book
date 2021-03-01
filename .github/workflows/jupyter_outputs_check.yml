@@ -26,7 +26,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
       - uses: actions/checkout@v2
-      - run: npm ci
       - uses: nelonoel/branch-name@v1
       # Use branch name for whatever purpose
       - run: echo ${BRANCH_NAME}
