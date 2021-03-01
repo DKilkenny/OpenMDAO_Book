@@ -46,7 +46,7 @@ jobs:
           while read p;
           do
             jupyter nbconvert  --clear-output --inplace "$p"
-          done
+          done <ipy_list.txt
 
       - name: Check local directory
         run: |
