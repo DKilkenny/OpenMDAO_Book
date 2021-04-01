@@ -9,10 +9,21 @@
   chapters:
   - file: examples/examples
     sections:
+<<<<<<< HEAD
     - file: examples/paraboloid/paraboloid
     - file: examples/betz_limit/betz_limit
     - file: examples/keplers_equation/keplers_equation
     - file: examples/hohmann_transfer/hohmann_transfer
+=======
+    - file: examples/tldr_paraboloid
+    - file: examples/betz_limit
+    - file: examples/hohmann_transfer
+    - file: examples/keplers_equation
+    - file: examples/circuit_analysis_examples
+    - file: examples/beam_optimization_example
+    - file: examples/beam_optimization_example_part_2
+    - file: examples/simul_deriv_example
+>>>>>>> a541f0c6e76fec819fa98bad1d21e787ed4d708f
 
 - part: Basic User Guide
   chapters:
