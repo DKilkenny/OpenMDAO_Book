@@ -4,24 +4,29 @@ name: OpenMDAO Book Workflow
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  # Remove push when finally merging
+  # Remove push when finally merging.
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
 
 jobs:
-  # This job is called test_docs
+  # This job is called test_docs.
   test_docs:
     # Run on Ubuntu
     runs-on: ubuntu-latest
 
     steps:
 
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # TEMPORARY WHILE GITHUB FIXES THIS https://github.com/actions/virtual-environments/issues/3185
+      - name: Add the current IP address, long hostname and short hostname record to /etc/hosts file
+        run: |
+          echo -e "$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)\t$(hostname -f) $(hostname -s)" | sudo tee -a /etc/hosts
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -59,6 +64,7 @@ jobs:
 
           cd build_pyoptsparse;
           chmod 755 ./build_pyoptsparse.sh;
+          ./build_pyoptsparse.sh -b "v2.1.5";
           cd ..;
 
           export LD_LIBRARY_PATH=$HOME/ipopt/lib;
@@ -99,7 +105,7 @@ jobs:
           echo "=============================================================";
           echo "Run the tests.";
           echo "=============================================================";
-          testflo;
+          testflo -n 1
 
           echo "=============================================================";
           echo "Build the docs.";
